@@ -11,22 +11,23 @@
 <style>
   :root{
     --accent:#4c120d;
-    --accent-dark:#2c0a07;
-    --accent-deep:#150403;
+    --accent-mid:#6d2018;
     --accent-light:#8a3a2e;
     --accent-soft:#f3e9e4;
-    --accent-glow:rgba(76,18,13,0.10);
+    --deep:#150403;
+    --deep-2:#210806;
     --paper:#faf7f3;
-    --paper-2:#f2ece4;
+    --paper-2:#f1eae1;
     --ink:#191310;
     --text:rgba(25,19,16,0.92);
     --text-muted:rgba(25,19,16,0.62);
     --text-faint:rgba(25,19,16,0.40);
-    --line:rgba(25,19,16,0.14);
-    --line-soft:rgba(25,19,16,0.08);
-    --line-dark:rgba(255,255,255,0.16);
-    --sp:120px;
-    --sp-m:72px;
+    --line:rgba(25,19,16,0.16);
+    --line-soft:rgba(25,19,16,0.09);
+    --line-dark:rgba(255,255,255,0.18);
+    --line-dark-soft:rgba(255,255,255,0.10);
+    --sp:132px;
+    --sp-m:76px;
   }
 
   *{box-sizing:border-box;}
@@ -46,9 +47,9 @@
     font-family:'Roboto Slab', serif;
     color:var(--ink);
     margin:0 0 20px 0;
-    line-height:1.12;
+    line-height:1.14;
     font-weight:300;
-    letter-spacing:-0.01em;
+    letter-spacing:-0.012em;
   }
   p{margin:0 0 20px 0;}
   a{color:inherit; text-decoration:none;}
@@ -74,18 +75,7 @@
     section{padding-top:var(--sp-m); padding-bottom:var(--sp-m);}
   }
 
-  .eyebrow{
-    display:block;
-    font-family:'Roboto', sans-serif;
-    font-weight:500;
-    font-size:11px;
-    letter-spacing:0.30em;
-    text-transform:uppercase;
-    color:var(--accent);
-    margin-bottom:26px;
-  }
-
-  h2{font-size:clamp(30px, 4vw, 46px);}
+  h2{font-size:clamp(31px, 4.1vw, 50px);}
   h3{font-size:21px; font-weight:400;}
 
   p.lead{
@@ -99,55 +89,104 @@
     color:var(--text-muted);
   }
 
+  /* ---------- Sitne oznake ---------- */
+  .eyebrow{
+    display:block;
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:0.30em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:24px;
+  }
+  .eyebrow-rule{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:0.30em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:26px;
+  }
+  .eyebrow-rule::before{
+    content:"";
+    width:44px;
+    height:1px;
+    background:currentColor;
+    opacity:0.5;
+    flex-shrink:0;
+  }
+  .eyebrow-rule.center{justify-content:center;}
+  .eyebrow-rule.center::after{
+    content:"";
+    width:44px;
+    height:1px;
+    background:currentColor;
+    opacity:0.5;
+    flex-shrink:0;
+  }
+
+  /* ---------- Grančica (motiv iz logotipa) ---------- */
+  .sprig{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+    margin-bottom:36px;
+  }
+  .sprig::before,
+  .sprig::after{
+    content:"";
+    height:1px;
+    width:min(120px, 18vw);
+    background:linear-gradient(90deg, transparent, var(--line));
+  }
+  .sprig::after{background:linear-gradient(90deg, var(--line), transparent);}
+  .sprig svg{
+    width:56px;
+    height:18px;
+    stroke:var(--accent);
+    fill:none;
+    stroke-width:1.1;
+    stroke-linecap:round;
+    opacity:0.8;
+    flex-shrink:0;
+  }
+  .sprig.on-dark::before{background:linear-gradient(90deg, transparent, var(--line-dark));}
+  .sprig.on-dark::after{background:linear-gradient(90deg, var(--line-dark), transparent);}
+  .sprig.on-dark svg{stroke:rgba(255,255,255,0.7);}
+
   /* ---------- Dugmad ---------- */
   .btn{
+    position:relative;
     display:inline-flex;
     align-items:center;
     justify-content:center;
     gap:10px;
-    padding:17px 34px;
+    padding:18px 38px;
     border-radius:0;
     font-family:'Roboto', sans-serif;
     font-weight:500;
     font-size:12px;
-    letter-spacing:0.16em;
+    letter-spacing:0.18em;
     text-transform:uppercase;
     cursor:pointer;
     border:1px solid var(--ink);
-    transition:background .22s ease, color .22s ease, border-color .22s ease;
+    transition:background .25s ease, color .25s ease, border-color .25s ease, transform .25s ease;
     white-space:nowrap;
   }
-  .btn-primary{
-    background:var(--ink);
-    color:#fff;
-  }
-  .btn-primary:hover{
-    background:var(--accent);
-    border-color:var(--accent);
-  }
-  .btn-outline{
-    background:transparent;
-    color:var(--ink);
-    border-color:var(--line);
-  }
-  .btn-outline:hover{
-    background:var(--ink);
-    border-color:var(--ink);
-    color:#fff;
-  }
-  .btn-light{
-    background:transparent;
-    color:#fff;
-    border-color:rgba(255,255,255,0.45);
-  }
-  .btn-light:hover{
-    background:#fff;
-    border-color:#fff;
-    color:var(--accent-deep);
-  }
-  .btn-sm{padding:13px 24px; font-size:11px;}
+  .btn-primary{background:var(--ink); color:#fff;}
+  .btn-primary:hover{background:var(--accent); border-color:var(--accent); transform:translateY(-2px);}
+  .btn-outline{background:transparent; color:var(--ink); border-color:var(--line);}
+  .btn-outline:hover{background:var(--ink); border-color:var(--ink); color:#fff; transform:translateY(-2px);}
+  .btn-light{background:#fff; color:var(--deep); border-color:#fff;}
+  .btn-light:hover{background:transparent; color:#fff; border-color:rgba(255,255,255,0.6); transform:translateY(-2px);}
+  .btn-ghost-light{background:transparent; color:#fff; border-color:rgba(255,255,255,0.4);}
+  .btn-ghost-light:hover{background:#fff; border-color:#fff; color:var(--deep); transform:translateY(-2px);}
+  .btn-sm{padding:14px 26px; font-size:11px;}
 
-  /* tekstualni link sa strelicom */
   .link-arrow{
     display:inline-flex;
     align-items:center;
@@ -157,78 +196,137 @@
     letter-spacing:0.16em;
     text-transform:uppercase;
     color:var(--accent);
-    padding-bottom:6px;
+    padding-bottom:8px;
     border-bottom:1px solid var(--line);
-    transition:border-color .22s ease, gap .22s ease;
+    transition:border-color .25s ease, gap .25s ease, color .25s ease;
   }
   .link-arrow svg{width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.4;}
-  .link-arrow:hover{border-color:var(--accent); gap:18px;}
+  .link-arrow:hover{border-color:var(--accent); gap:20px;}
+  .link-arrow.on-dark{color:#fff; border-color:var(--line-dark);}
+  .link-arrow.on-dark:hover{border-color:#fff;}
+
+  /* ---------- Fotografije i placeholderi ---------- */
+  .shot{
+    position:relative;
+    overflow:hidden;
+    background:var(--paper-2);
+    display:block;
+  }
+  .shot img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform 1.1s cubic-bezier(.2,.7,.3,1);
+  }
+  .shot:hover img{transform:scale(1.045);}
+  .shot.is-empty{
+    border:1px solid var(--line-soft);
+    background:
+      repeating-linear-gradient(135deg, rgba(25,19,16,0.022) 0 2px, transparent 2px 9px),
+      var(--paper-2);
+  }
+  .shot.is-empty::after{
+    content:attr(data-label);
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:24px;
+    font-size:10px;
+    font-weight:500;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+  }
+  .shot.on-dark{background:var(--deep-2);}
+  .shot.on-dark.is-empty{
+    border-color:var(--line-dark-soft);
+    background:
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 9px),
+      var(--deep-2);
+  }
+  .shot.on-dark.is-empty::after{color:rgba(255,255,255,0.35);}
+
+  /* okvir koji viri iza fotografije */
+  .framed{position:relative;}
+  .framed::before{
+    content:"";
+    position:absolute;
+    left:-22px;
+    top:22px;
+    width:100%;
+    height:100%;
+    border:1px solid var(--accent);
+    opacity:0.32;
+    pointer-events:none;
+    z-index:0;
+  }
+  .framed .shot{position:relative; z-index:1;}
+  @media (max-width:768px){
+    .framed::before{left:-10px; top:10px;}
+  }
 
   /* ---------- Header ---------- */
   header{
-    position:sticky;
+    position:fixed;
     top:0;
+    left:0;
+    right:0;
     z-index:1000;
-    background:rgba(250,247,243,0.88);
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
-    border-bottom:1px solid var(--line-soft);
+    transition:background .35s ease, border-color .35s ease, box-shadow .35s ease;
+    border-bottom:1px solid transparent;
+  }
+  header.scrolled{
+    background:rgba(250,247,243,0.90);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-bottom-color:var(--line-soft);
   }
   .header-inner{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding-top:16px;
-    padding-bottom:16px;
+    padding-top:20px;
+    padding-bottom:20px;
     gap:24px;
+    transition:padding .35s ease;
   }
+  header.scrolled .header-inner{padding-top:12px; padding-bottom:12px;}
   .logo img{
-    height:48px;
+    height:54px;
     width:auto;
+    filter:brightness(0) invert(1);
+    transition:filter .35s ease, height .35s ease;
   }
-  nav.main-nav{
-    display:flex;
-    align-items:center;
-    gap:40px;
-  }
-  nav.main-nav .nav-links{
-    display:flex;
-    gap:30px;
-    align-items:center;
-  }
+  header.scrolled .logo img{filter:none; height:46px;}
+
+  nav.main-nav{display:flex; align-items:center; gap:40px;}
+  nav.main-nav .nav-links{display:flex; gap:30px; align-items:center;}
   nav.main-nav .nav-links a{
     font-size:11px;
     font-weight:500;
-    letter-spacing:0.16em;
+    letter-spacing:0.18em;
     text-transform:uppercase;
-    color:var(--text);
+    color:rgba(255,255,255,0.88);
     padding:4px 0;
     border-bottom:1px solid transparent;
     transition:border-color .2s ease, color .2s ease;
   }
-  nav.main-nav .nav-links a:hover{color:var(--accent); border-color:var(--accent);}
-  .nav-right{
-    display:flex;
-    align-items:center;
-    gap:20px;
-  }
-  .lang-switch{
-    display:flex;
-    gap:10px;
-    align-items:center;
-  }
-  .lang-switch a{
-    display:flex;
-    align-items:center;
-    opacity:0.45;
-    transition:opacity .15s ease;
-  }
-  .lang-switch a.active,
-  .lang-switch a:hover{opacity:1;}
-  .lang-switch img{
-    width:20px;
-    height:auto;
-  }
+  nav.main-nav .nav-links a:hover{color:#fff; border-color:rgba(255,255,255,0.7);}
+  header.scrolled nav.main-nav .nav-links a{color:var(--text);}
+  header.scrolled nav.main-nav .nav-links a:hover{color:var(--accent); border-color:var(--accent);}
+
+  .nav-right{display:flex; align-items:center; gap:22px;}
+  .lang-switch{display:flex; gap:10px; align-items:center;}
+  .lang-switch a{display:flex; align-items:center; opacity:0.5; transition:opacity .15s ease;}
+  .lang-switch a.active, .lang-switch a:hover{opacity:1;}
+  .lang-switch img{width:20px; height:auto;}
+  .nav-right .btn{border-color:rgba(255,255,255,0.45); background:transparent; color:#fff;}
+  .nav-right .btn:hover{background:#fff; border-color:#fff; color:var(--deep);}
+  header.scrolled .nav-right .btn{background:var(--ink); border-color:var(--ink); color:#fff;}
+  header.scrolled .nav-right .btn:hover{background:var(--accent); border-color:var(--accent);}
 
   .hamburger{
     display:none;
@@ -246,9 +344,10 @@
     display:block;
     height:1px;
     width:100%;
-    background:var(--ink);
-    transition:transform .2s ease, opacity .2s ease;
+    background:#fff;
+    transition:transform .25s ease, opacity .25s ease, background .35s ease;
   }
+  header.scrolled .hamburger span{background:var(--ink);}
   .hamburger.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
   .hamburger.active span:nth-child(2){opacity:0;}
   .hamburger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
@@ -262,9 +361,10 @@
       right:0;
       background:var(--paper);
       flex-direction:column;
-      align-items:flex-start;
+      align-items:stretch;
       gap:0;
       border-bottom:1px solid var(--line);
+      box-shadow:0 30px 60px rgba(21,4,3,0.12);
     }
     nav.main-nav.open{display:flex;}
     nav.main-nav .nav-links{
@@ -272,242 +372,346 @@
       align-items:stretch;
       width:100%;
       gap:0;
-      padding:8px 20px 12px 20px;
+      padding:10px 20px 12px 20px;
     }
-    nav.main-nav .nav-links a{
+    nav.main-nav .nav-links a,
+    header.scrolled nav.main-nav .nav-links a{
       display:block;
       width:100%;
       padding:16px 0;
-      border-bottom:1px solid var(--line-soft);
       font-size:12px;
+      color:var(--text);
+      border-bottom:1px solid var(--line-soft);
     }
     .nav-right{
       flex-direction:column;
       align-items:flex-start;
       width:100%;
-      padding:4px 20px 24px 20px;
-      gap:18px;
+      padding:4px 20px 26px 20px;
+      gap:20px;
     }
-    .nav-right .btn{width:100%;}
+    .nav-right .btn,
+    header.scrolled .nav-right .btn{
+      width:100%;
+      background:var(--ink);
+      border-color:var(--ink);
+      color:#fff;
+    }
     .hamburger{display:flex;}
-  }
-
-  /* ---------- Placeholderi ---------- */
-  .ph{
-    background:var(--paper-2);
-    border:1px solid var(--line-soft);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    color:var(--text-faint);
-    font-size:10px;
-    font-weight:500;
-    letter-spacing:0.22em;
-    text-transform:uppercase;
-    padding:24px;
   }
 
   /* ---------- Hero ---------- */
   .hero{
-    padding-top:96px;
+    position:relative;
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding-top:180px;
     padding-bottom:0;
+    background:var(--deep);
+    overflow:hidden;
+  }
+  @media (max-width:768px){
+    .hero{min-height:88svh; padding-top:140px;}
+  }
+  .hero-bg{
+    position:absolute;
+    inset:0;
+    z-index:0;
+  }
+  .hero-bg img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+  .hero-bg.is-empty{
+    background:
+      radial-gradient(120% 90% at 15% 15%, var(--accent-mid) 0%, transparent 58%),
+      radial-gradient(90% 80% at 85% 90%, var(--accent) 0%, transparent 55%),
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.018) 0 2px, transparent 2px 10px),
+      var(--deep);
+  }
+  .hero-bg.is-empty::after{
+    content:attr(data-label);
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:50%;
+    text-align:center;
+    font-size:10px;
+    letter-spacing:0.24em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.22);
+  }
+  .hero-overlay{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    background:
+      linear-gradient(180deg, rgba(21,4,3,0.72) 0%, rgba(21,4,3,0.30) 38%, rgba(21,4,3,0.86) 100%);
+  }
+  .hero-inner{
+    position:relative;
+    z-index:2;
+    width:100%;
+    padding-bottom:64px;
     text-align:center;
   }
-  @media (max-width:768px){
-    .hero{padding-top:56px;}
-  }
-  .hero-content{
-    max-width:920px;
-    margin:0 auto;
-  }
+  .hero-content{max-width:960px; margin:0 auto;}
+  .hero .eyebrow-rule{color:rgba(255,255,255,0.72); justify-content:center;}
+  .hero .eyebrow-rule::before,
+  .hero .eyebrow-rule::after{content:""; width:44px; height:1px; background:currentColor; opacity:0.5;}
   .hero h1{
-    font-size:clamp(38px, 6.6vw, 82px);
+    color:#fff;
+    font-size:clamp(40px, 7vw, 88px);
     font-weight:200;
-    line-height:1.06;
-    margin-bottom:28px;
+    line-height:1.03;
+    letter-spacing:-0.02em;
+    margin-bottom:26px;
+    text-shadow:0 2px 40px rgba(21,4,3,0.45);
   }
   .hero h1 em{
-    font-style:normal;
-    color:var(--accent);
+    font-style:italic;
+    font-weight:300;
+    color:#f0d9c9;
   }
   .hero p.lead{
-    max-width:62ch;
-    margin-left:auto;
-    margin-right:auto;
-    margin-bottom:38px;
+    max-width:58ch;
+    margin:0 auto 40px auto;
+    color:rgba(255,255,255,0.82);
+    font-size:19px;
   }
-  @media (max-width:480px){
-    .hero .eyebrow{font-size:10px; letter-spacing:0.18em;}
+  @media (max-width:560px){
+    .hero .eyebrow-rule{font-size:10px; letter-spacing:0.16em;}
+    .hero .eyebrow-rule::before,
+    .hero .eyebrow-rule::after{display:none;}
   }
-  .hero-visual{
-    margin-top:80px;
-    min-height:min(58vw, 560px);
+  .hero-facts{
+    position:relative;
+    z-index:2;
+    border-top:1px solid var(--line-dark-soft);
   }
-  @media (max-width:768px){
-    .hero-visual{margin-top:48px; min-height:280px;}
-  }
-
-  /* ---------- Traka priznanja ---------- */
-  .awards{
-    padding-top:28px;
-    padding-bottom:28px;
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-  }
-  .awards-inner{
+  .hero-facts-inner{
     display:flex;
     align-items:center;
-    justify-content:center;
+    justify-content:space-between;
     flex-wrap:wrap;
-    gap:14px 28px;
+    gap:14px 32px;
+    padding-top:22px;
+    padding-bottom:22px;
     font-size:11px;
     letter-spacing:0.22em;
     text-transform:uppercase;
-    color:var(--text-faint);
+    color:rgba(255,255,255,0.55);
   }
-  .awards-inner strong{
-    color:var(--accent);
-    font-weight:500;
-  }
-  .awards-years{
-    display:flex;
-    gap:22px;
-    flex-wrap:wrap;
-    justify-content:center;
+  .hero-facts-inner strong{color:#fff; font-weight:500;}
+  .hero-facts-years{display:flex; gap:18px; flex-wrap:wrap;}
+  @media (max-width:768px){
+    .hero-facts-inner{justify-content:center; text-align:center; font-size:10px; letter-spacing:0.18em;}
   }
 
-  /* ---------- Bol uvod ---------- */
-  .pain{
-    background:var(--paper-2);
-  }
-  .pain .wrap{
-    max-width:1000px;
-  }
-  .pain p{
+  /* ---------- Uvod / bol ---------- */
+  .pain{background:var(--paper); text-align:center;}
+  .pain .wrap{max-width:980px;}
+  .pain p.quote{
     font-family:'Roboto Slab', serif;
     font-weight:300;
-    font-size:clamp(21px, 2.6vw, 30px);
-    line-height:1.5;
+    font-size:clamp(23px, 3vw, 36px);
+    line-height:1.42;
     color:var(--ink);
-    max-width:32ch;
-    margin:0 auto;
-    text-align:center;
+    max-width:24ch;
+    margin:0 auto 28px auto;
   }
-  .pain p + p{
-    font-family:'Roboto', sans-serif;
-    font-size:17px;
-    line-height:1.75;
-    color:var(--text-muted);
-    max-width:56ch;
-    margin-top:28px;
+  .pain p.quote span{color:var(--accent);}
+  .pain p.body-text{
+    max-width:58ch;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:0;
   }
 
   /* ---------- Zaglavlje sekcije ---------- */
-  .section-head{
-    max-width:720px;
-    margin-bottom:64px;
+  .sec-head{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:0 28px;
+    align-items:start;
+    margin-bottom:68px;
   }
-  .section-head.center{
-    margin-left:auto;
-    margin-right:auto;
+  .sec-num{
+    font-family:'Roboto Slab', serif;
+    font-size:13px;
+    font-weight:400;
+    letter-spacing:0.18em;
+    color:var(--accent);
+    padding-top:8px;
+  }
+  .sec-head h2{margin-bottom:18px; max-width:18ch;}
+  .sec-head .body-text{margin-bottom:0;}
+  .sec-head.center{
+    display:block;
     text-align:center;
-  }
-  .section-head.center p.body-text,
-  .section-head.center p.lead{
+    max-width:720px;
     margin-left:auto;
     margin-right:auto;
   }
-  .section-line{
-    border-top:1px solid var(--line-soft);
+  .sec-head.center h2{margin-left:auto; margin-right:auto;}
+  .sec-head.center .body-text,
+  .sec-head.center .lead{margin-left:auto; margin-right:auto;}
+  @media (max-width:768px){
+    .sec-head{grid-template-columns:1fr; gap:14px; margin-bottom:48px;}
+    .sec-num{padding-top:0;}
   }
 
   /* ---------- Meni ---------- */
   .meni-grid{
     display:grid;
     grid-template-columns:repeat(3, 1fr);
-    gap:0;
-    border-top:1px solid var(--line);
-    margin-bottom:56px;
+    gap:36px;
+    margin-bottom:60px;
   }
   @media (max-width:900px){
-    .meni-grid{grid-template-columns:1fr;}
+    .meni-grid{grid-template-columns:1fr; gap:44px;}
   }
-  .meni-card{
-    padding:40px 40px 44px 0;
-    border-right:1px solid var(--line-soft);
+  .meni-card .shot{height:300px; margin-bottom:28px;}
+  .meni-card-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    padding-bottom:14px;
+    margin-bottom:16px;
+    border-bottom:1px solid var(--line-soft);
   }
-  .meni-card:last-child{border-right:none; padding-right:0;}
-  .meni-card:not(:first-child){padding-left:40px;}
-  @media (max-width:900px){
-    .meni-card,
-    .meni-card:not(:first-child){
-      padding:32px 0 32px 0;
-      border-right:none;
-      border-bottom:1px solid var(--line-soft);
-    }
-    .meni-card:last-child{border-bottom:none;}
-  }
-  .card-num{
-    display:block;
+  .meni-card-head span{
     font-family:'Roboto Slab', serif;
-    font-size:13px;
-    font-weight:400;
-    letter-spacing:0.18em;
+    font-size:12px;
+    letter-spacing:0.16em;
     color:var(--accent);
-    margin-bottom:20px;
   }
-  .meni-card h3{margin-bottom:12px;}
-  .meni-card p{color:var(--text-muted); font-size:16px; margin-bottom:0;}
+  .meni-card h3{margin-bottom:0;}
+  .meni-card p{color:var(--text-muted); font-size:16px; margin-bottom:18px;}
+  .meni-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 10px;
+  }
+  .meni-tags li{
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+    border:1px solid var(--line-soft);
+    padding:7px 13px;
+  }
+  .meni-foot{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+    flex-wrap:wrap;
+    padding-top:36px;
+    border-top:1px solid var(--line);
+  }
+  .meni-foot p{
+    margin:0;
+    color:var(--text-faint);
+    font-size:13px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+  }
 
-  /* ---------- Ambijent ---------- */
+  /* ---------- Split blokovi ---------- */
   .split{
     display:grid;
-    grid-template-columns:1fr 1.15fr;
-    gap:80px;
+    grid-template-columns:1fr 1.12fr;
+    gap:88px;
     align-items:center;
   }
-  .split.reverse{grid-template-columns:1.15fr 1fr;}
+  .split.reverse{grid-template-columns:1.12fr 1fr;}
   @media (max-width:900px){
-    .split,
-    .split.reverse{grid-template-columns:1fr; gap:44px;}
-  }
-  .ambijent-images{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:16px;
-  }
-  .ambijent-images .ph{min-height:240px;}
-  .ambijent-images .ph:first-child{grid-column:1/3; min-height:300px;}
-  @media (max-width:768px){
-    .ambijent-images .ph{min-height:180px;}
-    .ambijent-images .ph:first-child{min-height:220px;}
+    .split, .split.reverse{grid-template-columns:1fr; gap:48px;}
   }
 
-  /* ---------- Farma ---------- */
-  .farma{
-    background:var(--paper-2);
+  /* ---------- Ambijent ---------- */
+  .ambijent{background:var(--paper-2);}
+  .ambijent-gallery{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:auto auto;
+    gap:18px;
   }
-  .farma .ph{min-height:520px;}
+  .ambijent-gallery .shot{height:230px;}
+  .ambijent-gallery .shot:first-child{grid-column:1/3; height:330px;}
   @media (max-width:768px){
-    .farma .ph{min-height:300px;}
+    .ambijent-gallery .shot{height:170px;}
+    .ambijent-gallery .shot:first-child{height:230px;}
   }
+  .ambijent-list{
+    margin-top:32px;
+    border-top:1px solid var(--line);
+  }
+  .ambijent-list li{
+    display:flex;
+    align-items:baseline;
+    gap:18px;
+    padding-top:16px;
+    padding-bottom:16px;
+    border-bottom:1px solid var(--line-soft);
+    font-size:16px;
+    color:var(--text-muted);
+  }
+  .ambijent-list li strong{
+    font-family:'Roboto Slab', serif;
+    font-weight:400;
+    font-size:15px;
+    color:var(--ink);
+    min-width:96px;
+    flex-shrink:0;
+  }
+
+  /* ---------- Farma (tamna sekcija) ---------- */
+  .farma{
+    background:var(--deep);
+    color:rgba(255,255,255,0.72);
+    position:relative;
+    overflow:hidden;
+  }
+  .farma::before{
+    content:"";
+    position:absolute;
+    top:-20%;
+    right:-10%;
+    width:60%;
+    height:90%;
+    background:radial-gradient(circle, rgba(138,58,46,0.30) 0%, transparent 65%);
+    pointer-events:none;
+  }
+  .farma .wrap{position:relative; z-index:1;}
+  .farma h2{color:#fff;}
+  .farma .eyebrow-rule{color:rgba(255,255,255,0.7);}
+  .farma p.body-text{color:rgba(255,255,255,0.68);}
+  .farma .shot{height:560px;}
+  @media (max-width:768px){
+    .farma .shot{height:320px;}
+  }
+  .farma .framed::before{border-color:rgba(255,255,255,0.35); opacity:0.5;}
   .farma-badge-row{
     display:flex;
     align-items:center;
-    gap:20px;
-    margin-top:36px;
-    padding-top:28px;
-    border-top:1px solid var(--line);
+    gap:22px;
+    margin-top:40px;
+    padding-top:30px;
+    border-top:1px solid var(--line-dark-soft);
   }
-  .farma-badge-row img{width:84px; height:auto;}
+  .farma-badge-row img{width:86px; height:auto;}
   .farma-badge-row span{
     font-size:11px;
     letter-spacing:0.18em;
     text-transform:uppercase;
-    color:var(--text-faint);
-    max-width:22ch;
-    line-height:1.8;
+    color:rgba(255,255,255,0.5);
+    max-width:24ch;
+    line-height:1.9;
   }
 
   /* ---------- Usluge ---------- */
@@ -521,105 +725,135 @@
     .usluge-grid{grid-template-columns:1fr;}
   }
   .usluga-card{
-    padding:44px 40px 44px 0;
+    position:relative;
+    padding:48px 40px 48px 40px;
     border-right:1px solid var(--line-soft);
     display:flex;
     flex-direction:column;
+    transition:background .3s ease;
   }
+  .usluga-card:first-child{padding-left:0;}
   .usluga-card:last-child{border-right:none; padding-right:0;}
-  .usluga-card:not(:first-child){padding-left:40px;}
+  .usluga-card::after{
+    content:"";
+    position:absolute;
+    left:0;
+    top:-1px;
+    width:0;
+    height:2px;
+    background:var(--accent);
+    transition:width .45s cubic-bezier(.2,.7,.3,1);
+  }
+  .usluga-card:hover::after{width:100%;}
   @media (max-width:900px){
-    .usluga-card,
-    .usluga-card:not(:first-child){
-      padding:36px 0 36px 0;
+    .usluga-card, .usluga-card:first-child, .usluga-card:last-child{
+      padding:38px 0 38px 0;
       border-right:none;
       border-bottom:1px solid var(--line-soft);
     }
     .usluga-card:last-child{border-bottom:none;}
   }
-  .icon-line{
-    margin-bottom:24px;
-  }
+  .icon-line{margin-bottom:26px;}
   .icon-line svg{
-    width:28px;
-    height:28px;
+    width:30px;
+    height:30px;
     stroke:var(--accent);
     fill:none;
-    stroke-width:1.2;
+    stroke-width:1.15;
     stroke-linecap:round;
     stroke-linejoin:round;
   }
   .usluga-card h3{margin-bottom:12px;}
   .usluga-card p{color:var(--text-muted); font-size:16px; flex-grow:1;}
-  .usluga-card .link-arrow,
-  .usluga-card .btn{margin-top:14px; align-self:flex-start;}
+  .usluga-card .link-arrow{margin-top:16px; align-self:flex-start;}
 
   /* ---------- O restoranu ---------- */
-  .brend .ph{min-height:560px;}
+  .brend{background:var(--paper-2);}
+  .brend .shot{height:600px;}
   @media (max-width:768px){
-    .brend .ph{min-height:320px;}
+    .brend .shot{height:340px;}
   }
   .brend-stats{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:32px;
-    margin-top:40px;
-    padding-top:32px;
+    gap:36px;
+    margin-top:44px;
+    padding-top:34px;
     border-top:1px solid var(--line);
   }
   @media (max-width:480px){
-    .brend-stats{grid-template-columns:1fr; gap:24px;}
+    .brend-stats{grid-template-columns:1fr; gap:26px;}
   }
   .brend-stat strong{
     display:block;
     font-family:'Roboto Slab', serif;
-    font-size:38px;
-    font-weight:300;
+    font-size:clamp(34px, 4.4vw, 46px);
+    font-weight:200;
     color:var(--accent);
-    line-height:1.1;
-    margin-bottom:8px;
+    line-height:1.05;
+    margin-bottom:10px;
   }
   .brend-stat span{
     font-size:11px;
     letter-spacing:0.18em;
     text-transform:uppercase;
     color:var(--text-faint);
-    line-height:1.8;
+    line-height:1.9;
   }
 
   /* ---------- Priznanja ---------- */
-  .utisci{
-    background:var(--paper-2);
-    text-align:center;
-  }
-  .utisci-img{
-    max-width:440px;
-    margin:0 auto;
-    background:#fff;
-    border:1px solid var(--line-soft);
-    padding:28px;
-  }
+  .utisci{text-align:center;}
+  .utisci-img{max-width:430px; margin:0 auto 44px auto;}
   .utisci-img img{width:100%; height:auto;}
+  .years-row{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    max-width:760px;
+    margin:0 auto;
+  }
+  .years-row div{
+    flex:1 1 0;
+    min-width:96px;
+    padding-top:26px;
+    padding-bottom:26px;
+    border-right:1px solid var(--line-soft);
+    font-family:'Roboto Slab', serif;
+    font-weight:300;
+    font-size:22px;
+    color:var(--ink);
+  }
+  .years-row div:last-child{border-right:none;}
+  .years-row div small{
+    display:block;
+    font-family:'Roboto', sans-serif;
+    font-size:9px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+    margin-top:6px;
+  }
 
   /* ---------- Kontakt ---------- */
   .kontakt-grid{
     display:grid;
-    grid-template-columns:1fr 1.1fr;
-    gap:80px;
-    align-items:start;
+    grid-template-columns:1fr 1.08fr;
+    gap:88px;
+    align-items:stretch;
   }
   @media (max-width:900px){
-    .kontakt-grid{grid-template-columns:1fr; gap:44px;}
+    .kontakt-grid{grid-template-columns:1fr; gap:48px;}
   }
-  .kontakt-list{
-    border-top:1px solid var(--line);
-  }
+  .kontakt-list{border-top:1px solid var(--line);}
   .kontakt-info-item{
     display:flex;
     gap:22px;
     align-items:flex-start;
-    padding-top:24px;
-    padding-bottom:24px;
+    padding-top:26px;
+    padding-bottom:26px;
     border-bottom:1px solid var(--line-soft);
   }
   .kontakt-info-item .icon-line{margin-bottom:0; flex-shrink:0; padding-top:4px;}
@@ -633,23 +867,12 @@
     font-weight:500;
     margin-bottom:6px;
   }
-  .kontakt-info-item p{
-    margin-bottom:0;
-    color:var(--ink);
-    font-size:17px;
-  }
-  .kontakt-cta{margin-top:36px;}
-  .kontakt-grid .ph{min-height:520px;}
-  @media (max-width:768px){
-    .kontakt-grid .ph{min-height:300px;}
-  }
+  .kontakt-info-item p{margin-bottom:0; color:var(--ink); font-size:17px;}
   .payment-row{
     display:flex;
     align-items:center;
     gap:16px;
-    margin-top:36px;
-    padding-top:24px;
-    border-top:1px solid var(--line-soft);
+    margin-top:30px;
     flex-wrap:wrap;
   }
   .payment-row img{height:24px; width:auto; opacity:0.75;}
@@ -659,47 +882,101 @@
     text-transform:uppercase;
     color:var(--text-faint);
   }
+  .kontakt-panel{
+    background:var(--deep);
+    color:rgba(255,255,255,0.72);
+    padding:44px 40px;
+    margin-top:36px;
+  }
+  @media (max-width:480px){
+    .kontakt-panel{padding:32px 24px;}
+  }
+  .kontakt-panel h3{
+    color:#fff;
+    font-size:24px;
+    margin-bottom:12px;
+  }
+  .kontakt-panel p{
+    color:rgba(255,255,255,0.62);
+    font-size:16px;
+    margin-bottom:26px;
+  }
+  .kontakt-panel .btn{width:100%;}
+  .kontakt-panel .tel{
+    display:block;
+    margin-top:20px;
+    text-align:center;
+    font-size:11px;
+    letter-spacing:0.20em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.5);
+    transition:color .2s ease;
+  }
+  .kontakt-panel .tel:hover{color:#fff;}
+  .kontakt-map{height:100%;}
+  .kontakt-map .shot{height:100%; min-height:560px;}
+  @media (max-width:900px){
+    .kontakt-map .shot{height:380px; min-height:0;}
+  }
 
   /* ---------- CTA zatvaranje ---------- */
   .cta-final{
-    background:var(--accent-deep);
+    position:relative;
+    background:var(--deep);
     color:#fff;
     text-align:center;
+    overflow:hidden;
   }
-  .cta-final .eyebrow{color:rgba(255,255,255,0.55);}
+  .cta-final .cta-bg{position:absolute; inset:0; z-index:0;}
+  .cta-final .cta-bg img{width:100%; height:100%; object-fit:cover;}
+  .cta-final .cta-bg.is-empty{
+    background:
+      radial-gradient(100% 90% at 70% 20%, var(--accent-mid) 0%, transparent 60%),
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.016) 0 2px, transparent 2px 10px),
+      var(--deep);
+  }
+  .cta-final .cta-overlay{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    background:linear-gradient(180deg, rgba(21,4,3,0.82), rgba(21,4,3,0.90));
+  }
+  .cta-final .wrap{position:relative; z-index:2;}
+  .cta-final .eyebrow-rule{color:rgba(255,255,255,0.6); justify-content:center;}
+  .cta-final .eyebrow-rule::after{content:""; width:44px; height:1px; background:currentColor; opacity:0.5;}
   .cta-final h2{
     color:#fff;
-    font-size:clamp(32px, 5vw, 58px);
+    font-size:clamp(34px, 5.4vw, 64px);
     font-weight:200;
-    max-width:18ch;
+    max-width:17ch;
     margin-left:auto;
     margin-right:auto;
   }
   .cta-final p.lead{
-    color:rgba(255,255,255,0.68);
-    margin-left:auto;
-    margin-right:auto;
-    margin-bottom:38px;
+    color:rgba(255,255,255,0.7);
+    margin:0 auto 40px auto;
   }
 
   /* ---------- Footer ---------- */
   footer{
-    background:var(--accent-deep);
-    color:rgba(255,255,255,0.62);
-    padding-top:72px;
+    background:var(--deep-2);
+    color:rgba(255,255,255,0.6);
+    padding-top:84px;
     padding-bottom:36px;
-    border-top:1px solid var(--line-dark);
   }
   .footer-grid{
     display:grid;
-    grid-template-columns:1.6fr 1fr 1fr;
+    grid-template-columns:1.7fr 1fr 1fr 1.1fr;
     gap:48px;
-    padding-bottom:48px;
-    border-bottom:1px solid var(--line-dark);
+    padding-bottom:52px;
+    border-bottom:1px solid var(--line-dark-soft);
     margin-bottom:28px;
   }
-  @media (max-width:768px){
-    .footer-grid{grid-template-columns:1fr; gap:36px;}
+  @media (max-width:900px){
+    .footer-grid{grid-template-columns:1fr 1fr; gap:40px;}
+  }
+  @media (max-width:560px){
+    .footer-grid{grid-template-columns:1fr; gap:34px;}
   }
   .footer-grid img.footer-logo{
     height:64px;
@@ -711,17 +988,17 @@
   .footer-intro{
     max-width:34ch;
     font-size:15px;
-    color:rgba(255,255,255,0.5);
+    color:rgba(255,255,255,0.48);
     margin-bottom:0;
   }
   .footer-grid h3{
-    color:rgba(255,255,255,0.45);
+    color:rgba(255,255,255,0.42);
     font-size:10px;
     font-family:'Roboto', sans-serif;
     font-weight:500;
-    letter-spacing:0.22em;
+    letter-spacing:0.24em;
     text-transform:uppercase;
-    margin-bottom:20px;
+    margin-bottom:22px;
   }
   .footer-grid li{margin-bottom:12px; font-size:15px;}
   .footer-grid a{transition:color .2s ease;}
@@ -735,27 +1012,26 @@
     font-size:11px;
     letter-spacing:0.12em;
     text-transform:uppercase;
-    color:rgba(255,255,255,0.35);
+    color:rgba(255,255,255,0.32);
   }
 
   /* ---------- reveal ---------- */
   .reveal{
     opacity:1;
-    transform:translateY(12px);
-    transition:transform .7s ease;
+    transform:translateY(14px);
+    transition:transform .8s cubic-bezier(.2,.7,.3,1);
   }
-  .reveal.visible{
-    transform:translateY(0);
-  }
+  .reveal.visible{transform:translateY(0);}
   @media (prefers-reduced-motion:reduce){
     .reveal{transform:none; transition:none;}
+    .shot img{transition:none;}
     html{scroll-behavior:auto;}
   }
 </style>
 </head>
 <body>
 
-<header>
+<header id="siteHeader">
   <div class="wrap header-inner">
     <a href="#pocetna" class="logo">
       <img src="assets/logo.png" alt="Bela reka - nacionalni restoran, osnovano 2017">
@@ -774,7 +1050,7 @@
           <a href="#" class="active" aria-label="Srpski jezik"><img src="assets/sr.png" alt="Srpski jezik"></a>
           <a href="#" aria-label="English language"><img src="assets/en.png" alt="English language"></a>
         </div>
-        <a href="#kontakt" class="btn btn-primary btn-sm">Rezerviši sto</a>
+        <a href="#kontakt" class="btn btn-sm">Rezerviši sto</a>
       </div>
     </nav>
     <button class="hamburger" id="hamburgerBtn" aria-label="Otvori meni" aria-expanded="false">
@@ -787,84 +1063,131 @@
 
   <!-- HERO -->
   <section class="hero" id="pocetna">
-    <div class="wrap">
+    <div class="hero-bg shot-bg" data-label="Fotografija: assets/hero.jpg">
+      <img src="assets/hero.jpg" alt="Postavljen sto u restoranu Bela reka">
+    </div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <div class="wrap hero-inner">
       <div class="hero-content">
-        <span class="eyebrow">Nacionalni restoran &middot; Novi Beograd</span>
+        <span class="eyebrow-rule">Nacionalni restoran &middot; Novi Beograd</span>
         <h1>Ukus tradicije, sveže sa <em>sopstvene farme</em></h1>
         <p class="lead">Bela reka kuva jela po starim recepturama, od mesa i povrća sa farme Bela Reka. Sedneš za sto i osećaš se kao da si svratio kod rodbine na ručak.</p>
-        <a href="#kontakt" class="btn btn-primary">Rezerviši sto online</a>
+        <a href="#kontakt" class="btn btn-light">Rezerviši sto online</a>
       </div>
-      <div class="ph hero-visual reveal" aria-hidden="true">Fotografija enterijera restorana</div>
+    </div>
+
+    <div class="hero-facts">
+      <div class="wrap hero-facts-inner">
+        <span><strong>Michelin preporuka</strong> 2022 - 2026</span>
+        <span>Bulevar Zorana Đinđića 104, Novi Beograd</span>
+        <span>Osnovano 2017.</span>
+      </div>
     </div>
   </section>
 
-  <!-- TRAKA PRIZNANJA -->
-  <div class="awards">
-    <div class="wrap awards-inner">
-      <strong>Michelin preporuka</strong>
-      <div class="awards-years">
-        <span>2022</span><span>2023</span><span>2024</span><span>2025</span><span>2026</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- BOL UVOD -->
+  <!-- UVOD -->
   <section class="pain">
     <div class="wrap reveal">
-      <p>Domaća kuhinja piše na jelovniku, a na tanjir stiže nešto što je čekalo u zamrzivaču.</p>
-      <p>Teško je naći mesto gde meso stiže sa farme, povrće sa njive, a sto je i dalje udoban za poslovni ručak ili porodičnu proslavu. Bela reka postoji zato što smo tu prazninu tražili i mi, pre nego što smo je popunili.</p>
+      <div class="sprig" aria-hidden="true">
+        <svg viewBox="0 0 56 18"><path d="M2 9h52"/><path d="M14 9c3-4 7-5 10-5M14 9c3 4 7 5 10 5M22 9c3-4 7-5 10-5M22 9c3 4 7 5 10 5M30 9c3-4 7-5 10-5M30 9c3 4 7 5 10 5"/></svg>
+      </div>
+      <p class="quote">Domaća kuhinja piše na jelovniku, a na tanjir stiže nešto što je čekalo u <span>zamrzivaču</span>.</p>
+      <p class="body-text">Teško je naći mesto gde meso stiže sa farme, povrće sa njive, a sto je i dalje udoban za poslovni ručak ili porodičnu proslavu. Bela reka postoji zato što smo tu prazninu tražili i mi, pre nego što smo je popunili.</p>
     </div>
   </section>
 
   <!-- MENI -->
   <section id="meni">
     <div class="wrap">
-      <div class="section-head reveal">
-        <span class="eyebrow">Jelovnik</span>
-        <h2>Recepture koje pamte baka i deka</h2>
-        <p class="body-text">Sarme, čorbe, jela ispod sača, pečenje sa roštilja i domaći kolači. Sve pripremamo istog dana, od namirnica koje uglavnom uzgajamo sami.</p>
+      <div class="sec-head reveal">
+        <span class="sec-num">01</span>
+        <div>
+          <span class="eyebrow">Jelovnik</span>
+          <h2>Recepture koje pamte baka i deka</h2>
+          <p class="body-text">Sarme, čorbe, jela ispod sača, pečenje sa roštilja i domaći kolači. Sve pripremamo istog dana, od namirnica koje uglavnom uzgajamo sami.</p>
+        </div>
       </div>
 
       <div class="meni-grid">
         <div class="meni-card reveal">
-          <span class="card-num">01</span>
-          <h3>Predjela i salate</h3>
+          <div class="shot" data-label="Fotografija predjela">
+            <img src="assets/meni-predjela.jpg" alt="Predjela i salate u restoranu Bela reka">
+          </div>
+          <div class="meni-card-head">
+            <span>01</span>
+            <h3>Predjela i salate</h3>
+          </div>
           <p>Kajmak, ajvar, pihtije i salate od povrća sa farme, spremljene po sezoni.</p>
+          <ul class="meni-tags">
+            <li>Kajmak</li><li>Ajvar</li><li>Pihtije</li><li>Sezonske salate</li>
+          </ul>
         </div>
         <div class="meni-card reveal">
-          <span class="card-num">02</span>
-          <h3>Sa roštilja i iz rerne</h3>
+          <div class="shot" data-label="Fotografija jela sa roštilja">
+            <img src="assets/meni-rostilj.jpg" alt="Pečenje i jela sa roštilja u restoranu Bela reka">
+          </div>
+          <div class="meni-card-head">
+            <span>02</span>
+            <h3>Sa roštilja i iz rerne</h3>
+          </div>
           <p>Pečenje, ćevapi, jagnjetina ispod sača i specijaliteti koje spremamo satima.</p>
+          <ul class="meni-tags">
+            <li>Pečenje</li><li>Ćevapi</li><li>Ispod sača</li><li>Sarma</li>
+          </ul>
         </div>
         <div class="meni-card reveal">
-          <span class="card-num">03</span>
-          <h3>Slatkiši od domaćeg voća</h3>
+          <div class="shot" data-label="Fotografija deserta">
+            <img src="assets/meni-desert.jpg" alt="Domaći kolači i deserti u restoranu Bela reka">
+          </div>
+          <div class="meni-card-head">
+            <span>03</span>
+            <h3>Slatkiši od domaćeg voća</h3>
+          </div>
           <p>Pite, kolači i deserti od voća koje beremo na farmi, bez veštačkih dodataka.</p>
+          <ul class="meni-tags">
+            <li>Pite</li><li>Kolači</li><li>Voće sa farme</li>
+          </ul>
         </div>
       </div>
 
-      <a href="#" class="link-arrow">Pogledaj ceo jelovnik
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-      </a>
+      <div class="meni-foot reveal">
+        <p>Sve se sprema istog dana</p>
+        <a href="#" class="link-arrow">Pogledaj ceo jelovnik
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </a>
+      </div>
     </div>
   </section>
 
   <!-- AMBIJENT -->
-  <section id="ambijent" class="section-line">
+  <section class="ambijent" id="ambijent">
     <div class="wrap">
       <div class="split">
         <div class="reveal">
-          <span class="eyebrow">Ambijent</span>
+          <span class="sec-num">02</span>
+          <span class="eyebrow" style="margin-top:14px;">Ambijent</span>
           <h2>Prostor u kom se opustiš čim sedneš</h2>
           <p class="body-text">Drvo, kamen i topla svetlost. Sto za dvoje u miru, veliki sto za slavlje od dvadeset ljudi, i bašta za dane kad hoćeš da sediš napolju. Isti ambijent radi i za poslovni ručak i za rođendan.</p>
-          <a href="#kontakt" class="link-arrow">Zatraži termin za proslavu
+          <ul class="ambijent-list">
+            <li><strong>Sala</strong> Mirni stolovi za dvoje i za porodicu</li>
+            <li><strong>Bašta</strong> Otvoreni deo za tople dane</li>
+            <li><strong>Slavlja</strong> Veliki sto za dvadeset ljudi</li>
+          </ul>
+          <a href="#kontakt" class="link-arrow" style="margin-top:32px;">Zatraži termin za proslavu
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
           </a>
         </div>
-        <div class="ambijent-images reveal">
-          <div class="ph" aria-hidden="true">Fotografija sale</div>
-          <div class="ph" aria-hidden="true">Fotografija bašte</div>
-          <div class="ph" aria-hidden="true">Fotografija stola za slavlja</div>
+        <div class="ambijent-gallery reveal">
+          <div class="shot" data-label="Fotografija sale">
+            <img src="assets/ambijent-sala.jpg" alt="Sala restorana Bela reka">
+          </div>
+          <div class="shot" data-label="Fotografija bašte">
+            <img src="assets/ambijent-basta.jpg" alt="Letnja bašta restorana Bela reka">
+          </div>
+          <div class="shot" data-label="Fotografija stola za slavlja">
+            <img src="assets/ambijent-slavlja.jpg" alt="Veliki sto za proslave u restoranu Bela reka">
+          </div>
         </div>
       </div>
     </div>
@@ -874,9 +1197,14 @@
   <section class="farma" id="farma">
     <div class="wrap">
       <div class="split reverse">
-        <div class="ph reveal" aria-hidden="true">Fotografija farme Bela Reka</div>
+        <div class="framed reveal">
+          <div class="shot on-dark" data-label="Fotografija farme Bela Reka">
+            <img src="assets/farma.jpg" alt="Farma Bela Reka sa koje stižu namirnice">
+          </div>
+        </div>
         <div class="reveal">
-          <span class="eyebrow">Farma Bela Reka</span>
+          <span class="sec-num" style="color:var(--accent-light);">03</span>
+          <span class="eyebrow-rule" style="margin-top:14px;">Farma Bela Reka</span>
           <h2>Sve počinje na njivi, ne u magacinu</h2>
           <p class="body-text">Meso, mleko, sir i povrće koje stavljamo na tanjir potiču sa farme Bela Reka. Ne naručujemo od anonimnih dobavljača - znamo tačno odakle dolazi svaka namirnica, jer smo je mi gajili.</p>
           <p class="body-text">Zato jela imaju ukus kakav pamtiš iz detinjstva, ne iz fabrike.</p>
@@ -892,7 +1220,8 @@
   <!-- USLUGE -->
   <section id="usluge">
     <div class="wrap">
-      <div class="section-head center reveal">
+      <div class="sec-head center reveal">
+        <span class="sec-num" style="display:block; margin-bottom:12px;">04</span>
         <span class="eyebrow">Usluge</span>
         <h2>Odaberi kako želiš da probaš Belu reku</h2>
         <p class="body-text">Za sto, za poklon ili za kući - biraš ti.</p>
@@ -934,12 +1263,17 @@
   </section>
 
   <!-- O RESTORANU -->
-  <section class="brend section-line" id="o-restoranu">
+  <section class="brend" id="o-restoranu">
     <div class="wrap">
       <div class="split reverse">
-        <div class="ph reveal" aria-hidden="true">Fotografija tima u kuhinji</div>
+        <div class="framed reveal">
+          <div class="shot" data-label="Fotografija tima u kuhinji">
+            <img src="assets/tim.jpg" alt="Kuvari restorana Bela reka u kuhinji">
+          </div>
+        </div>
         <div class="reveal">
-          <span class="eyebrow">O restoranu</span>
+          <span class="sec-num">05</span>
+          <span class="eyebrow" style="margin-top:14px;">O restoranu</span>
           <h2>Prvo smo gajili, pa smo kuvali</h2>
           <p class="body-text">Bela reka radi na Novom Beogradu od 2017. godine. Nismo krenuli od jelovnika, krenuli smo od farme - prvo smo gajili namirnice, pa smo oko njih napravili restoran.</p>
           <p class="body-text">Kuhinja je tradicionalna, osoblje te dočekuje kao gosta u svojoj kući, a jela izgledaju moderno bez izgubljenog ukusa domaće trpeze.</p>
@@ -961,7 +1295,8 @@
   <!-- PRIZNANJA -->
   <section class="utisci" id="utisci">
     <div class="wrap">
-      <div class="section-head center reveal">
+      <div class="sec-head center reveal">
+        <span class="sec-num" style="display:block; margin-bottom:12px;">06</span>
         <span class="eyebrow">Priznanja</span>
         <h2>Michelin nas preporučuje pet godina zaredom</h2>
         <p class="lead">Od 2022. do 2026. godine, Bela reka se nalazi na Michelin listi preporučenih restorana.</p>
@@ -969,16 +1304,26 @@
       <div class="utisci-img reveal">
         <img src="assets/mich-2026.png" alt="Michelin preporuke za restoran Bela reka za 2022, 2023, 2024, 2025 i 2026. godinu">
       </div>
+      <div class="years-row reveal">
+        <div>2022<small>Michelin</small></div>
+        <div>2023<small>Michelin</small></div>
+        <div>2024<small>Michelin</small></div>
+        <div>2025<small>Michelin</small></div>
+        <div>2026<small>Michelin</small></div>
+      </div>
     </div>
   </section>
 
   <!-- KONTAKT -->
   <section id="kontakt">
     <div class="wrap">
-      <div class="section-head reveal">
-        <span class="eyebrow">Kontakt i lokacija</span>
-        <h2>Nađi nas na Novom Beogradu</h2>
-        <p class="body-text">Pozovi, piši ili rezerviši sto online. Radujemo ti se za stolom.</p>
+      <div class="sec-head reveal">
+        <span class="sec-num">07</span>
+        <div>
+          <span class="eyebrow">Kontakt i lokacija</span>
+          <h2>Nađi nas na Novom Beogradu</h2>
+          <p class="body-text">Pozovi, piši ili rezerviši sto online. Radujemo ti se za stolom.</p>
+        </div>
       </div>
 
       <div class="kontakt-grid">
@@ -1022,8 +1367,11 @@
             </div>
           </div>
 
-          <div class="kontakt-cta">
-            <a href="#" class="btn btn-primary">Rezerviši sto online</a>
+          <div class="kontakt-panel">
+            <h3>Rezerviši sto online</h3>
+            <p>Biraš datum, vreme i broj ljudi. Slobodni termini ti se prikazuju odmah.</p>
+            <a href="#" class="btn btn-light">Rezerviši sto</a>
+            <a href="tel:0113112233" class="tel">Ili pozovi 011 311 22 33</a>
           </div>
 
           <div class="payment-row">
@@ -1034,15 +1382,26 @@
           </div>
         </div>
 
-        <div class="ph reveal" aria-hidden="true">Mapa lokacije - Novi Beograd</div>
+        <div class="kontakt-map reveal">
+          <div class="shot" data-label="Mapa lokacije - Novi Beograd">
+            <img src="assets/mapa.jpg" alt="Mapa sa lokacijom restorana Bela reka na Novom Beogradu">
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- CTA ZATVARANJE -->
   <section class="cta-final">
+    <div class="cta-bg shot-bg" data-label="">
+      <img src="assets/cta.jpg" alt="Postavljen sto u restoranu Bela reka">
+    </div>
+    <div class="cta-overlay" aria-hidden="true"></div>
     <div class="wrap reveal">
-      <span class="eyebrow">Rezervacije</span>
+      <div class="sprig on-dark" aria-hidden="true">
+        <svg viewBox="0 0 56 18"><path d="M2 9h52"/><path d="M14 9c3-4 7-5 10-5M14 9c3 4 7 5 10 5M22 9c3-4 7-5 10-5M22 9c3 4 7 5 10 5M30 9c3-4 7-5 10-5M30 9c3 4 7 5 10 5"/></svg>
+      </div>
+      <span class="eyebrow-rule center">Rezervacije</span>
       <h2>Zauzmi sto dok je slobodan</h2>
       <p class="lead">Mesta se popune brzo, posebno vikendom. Online sistem ti pokazuje slobodne termine odmah.</p>
       <a href="#" class="btn btn-light">Rezerviši sto online</a>
@@ -1065,16 +1424,23 @@
           <li><a href="#ambijent">Ambijent</a></li>
           <li><a href="#farma">Farma</a></li>
           <li><a href="#usluge">Usluge</a></li>
-          <li><a href="#kontakt">Kontakt</a></li>
+          <li><a href="#o-restoranu">O nama</a></li>
         </ul>
       </div>
       <div>
         <h3>Kontakt</h3>
         <ul>
-          <li>Bulevar Zorana Đinđića 104, Novi Beograd</li>
+          <li>Bulevar Zorana Đinđića 104</li>
+          <li>Novi Beograd</li>
           <li>011 311 22 33</li>
           <li>rezervacije@restoranbelareka.rs</li>
-          <li>Svaki dan, 12:00 - 00:00</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Radno vreme</h3>
+        <ul>
+          <li>Svaki dan</li>
+          <li>12:00 - 00:00</li>
         </ul>
       </div>
     </div>
@@ -1086,6 +1452,20 @@
 </footer>
 
 <script>
+  /* Fotografije koje još ne postoje u assets/ prelaze u stilizovan placeholder */
+  document.querySelectorAll('.shot img, .hero-bg img, .cta-bg img').forEach(img => {
+    const box = img.parentElement;
+    const fail = () => { box.classList.add('is-empty'); img.remove(); };
+    img.addEventListener('error', fail);
+    if (img.complete && img.naturalWidth === 0) fail();
+  });
+
+  /* Header: providan preko hero-a, pun kad se odlepi */
+  const siteHeader = document.getElementById('siteHeader');
+  const onScroll = () => {
+    siteHeader.classList.toggle('scrolled', window.scrollY > 60 || mainNav.classList.contains('open'));
+  };
+
   const hamburgerBtn = document.getElementById('hamburgerBtn');
   const mainNav = document.getElementById('mainNav');
 
@@ -1093,6 +1473,7 @@
     const isOpen = mainNav.classList.toggle('open');
     hamburgerBtn.classList.toggle('active', isOpen);
     hamburgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    onScroll();
   });
 
   mainNav.querySelectorAll('a').forEach(link => {
@@ -1100,11 +1481,14 @@
       mainNav.classList.remove('open');
       hamburgerBtn.classList.remove('active');
       hamburgerBtn.setAttribute('aria-expanded', 'false');
+      onScroll();
     });
   });
 
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
   if ('IntersectionObserver' in window) {
-    const revealEls = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -1113,7 +1497,7 @@
         }
       });
     }, { threshold: 0.12 });
-    revealEls.forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   } else {
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
   }
