@@ -511,26 +511,6 @@
     .hero-facts-inner{justify-content:center; text-align:center; font-size:10px; letter-spacing:0.18em;}
   }
 
-  /* ---------- Uvod / bol ---------- */
-  .pain{background:var(--paper); text-align:center;}
-  .pain .wrap{max-width:980px;}
-  .pain p.quote{
-    font-family:'Roboto Slab', serif;
-    font-weight:300;
-    font-size:clamp(23px, 3vw, 36px);
-    line-height:1.42;
-    color:var(--ink);
-    max-width:24ch;
-    margin:0 auto 28px auto;
-  }
-  .pain p.quote span{color:var(--accent);}
-  .pain p.body-text{
-    max-width:58ch;
-    margin-left:auto;
-    margin-right:auto;
-    margin-bottom:0;
-  }
-
   /* ---------- Zaglavlje sekcije ---------- */
   .sec-head{
     display:grid;
@@ -564,45 +544,77 @@
     .sec-num{padding-top:0;}
   }
 
-  /* ---------- Meni ---------- */
-  .meni-grid{
+  /* ---------- Meni: glavna jela ---------- */
+  .meni-split{
     display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:36px;
-    margin-bottom:60px;
+    grid-template-columns:1fr 1.12fr;
+    gap:88px;
+    align-items:start;
+    margin-bottom:64px;
   }
   @media (max-width:900px){
-    .meni-grid{grid-template-columns:1fr; gap:44px;}
+    .meni-split{grid-template-columns:1fr; gap:48px;}
   }
-  .meni-card .shot{height:300px; margin-bottom:28px;}
-  .meni-card-head{
+  .meni-feature .shot{height:640px;}
+  @media (max-width:768px){
+    .meni-feature .shot{height:360px;}
+  }
+  .meni-feature figcaption{
     display:flex;
     align-items:baseline;
-    gap:14px;
-    padding-bottom:14px;
-    margin-bottom:16px;
+    justify-content:space-between;
+    gap:16px;
+    margin-top:32px;
+    padding-top:16px;
+    border-top:1px solid var(--line-soft);
+  }
+  .meni-feature figcaption strong{
+    font-family:'Roboto Slab', serif;
+    font-weight:400;
+    font-size:20px;
+    color:var(--ink);
+  }
+  .meni-feature figcaption span{
+    font-size:12px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+  .gl-list{border-top:1px solid var(--line);}
+  .gl-list li{
+    display:grid;
+    grid-template-columns:40px 1fr auto;
+    gap:4px 16px;
+    align-items:baseline;
+    padding-top:20px;
+    padding-bottom:20px;
     border-bottom:1px solid var(--line-soft);
   }
-  .meni-card-head span{
+  .gl-list .gl-num{
     font-family:'Roboto Slab', serif;
     font-size:12px;
     letter-spacing:0.16em;
     color:var(--accent);
   }
-  .meni-card h3{margin-bottom:0;}
-  .meni-card p{color:var(--text-muted); font-size:16px; margin-bottom:18px;}
-  .meni-tags{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px 10px;
+  .gl-list h3{font-size:20px; margin:0;}
+  .gl-list p{
+    grid-column:2 / 4;
+    margin:0;
+    font-size:16px;
+    line-height:1.6;
+    color:var(--text-muted);
   }
-  .meni-tags li{
-    font-size:11px;
-    letter-spacing:0.14em;
+  .gl-tag{
+    font-size:12px;
+    letter-spacing:0.12em;
     text-transform:uppercase;
     color:var(--text-faint);
-    border:1px solid var(--line-soft);
-    padding:7px 13px;
+    white-space:nowrap;
+  }
+  @media (max-width:480px){
+    .gl-list li{grid-template-columns:32px 1fr;}
+    .gl-tag{grid-column:2; grid-row:2;}
+    .gl-list p{grid-column:2;}
   }
   .meni-foot{
     display:flex;
@@ -613,13 +625,150 @@
     padding-top:36px;
     border-top:1px solid var(--line);
   }
-  .meni-foot p{
-    margin:0;
-    color:var(--text-faint);
-    font-size:13px;
+  .meni-cats{display:flex; flex-wrap:wrap; gap:8px;}
+  .meni-cats button{
+    font-family:'Roboto', sans-serif;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--text-muted);
+    background:transparent;
+    border:1px solid var(--line-soft);
+    padding:8px 16px;
+    cursor:pointer;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  .meni-cats button:hover{border-color:var(--accent); color:var(--accent);}
+
+  /* ---------- Ceo jelovnik (preko cele strane) ---------- */
+  .jelovnik{
+    position:fixed;
+    inset:0;
+    z-index:2000;
+    background:var(--paper);
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(24px);
+    transition:opacity .35s ease, transform .35s ease, visibility 0s linear .35s;
+  }
+  .jelovnik.open{
+    opacity:1;
+    visibility:visible;
+    transform:none;
+    transition:opacity .35s ease, transform .35s ease;
+  }
+  .jelovnik-top{
+    position:sticky;
+    top:0;
+    z-index:2;
+    background:rgba(250,247,243,0.96);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .jelovnik-bar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+    padding-top:20px;
+    padding-bottom:20px;
+  }
+  .jelovnik-bar h2{font-size:32px; margin:0;}
+  .jelovnik-close{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    background:transparent;
+    border:1px solid var(--line);
+    padding:12px 20px;
+    font-family:'Roboto', sans-serif;
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--ink);
+    cursor:pointer;
+    transition:background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .jelovnik-close svg{width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.4;}
+  .jelovnik-close:hover{background:var(--ink); border-color:var(--ink); color:#fff;}
+  .jelovnik-tabs{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding-bottom:16px;
+    scrollbar-width:none;
+  }
+  .jelovnik-tabs::-webkit-scrollbar{display:none;}
+  .jelovnik-tabs a{
+    flex-shrink:0;
+    font-size:12px;
     letter-spacing:0.14em;
     text-transform:uppercase;
+    color:var(--text-muted);
+    border:1px solid var(--line-soft);
+    padding:8px 16px;
+    transition:border-color .2s ease, color .2s ease, background .2s ease;
   }
+  .jelovnik-tabs a:hover,
+  .jelovnik-tabs a.active{border-color:var(--accent); color:#fff; background:var(--accent);}
+  .jelovnik-body{padding-top:64px; padding-bottom:96px;}
+  .jl-cat{
+    scroll-margin-top:152px;
+    padding-bottom:64px;
+    margin-bottom:64px;
+    border-bottom:1px solid var(--line);
+  }
+  .jl-cat:last-child{border-bottom:none; margin-bottom:0; padding-bottom:0;}
+  .jl-cat-head{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    margin-bottom:32px;
+  }
+  .jl-cat-head span{
+    font-family:'Roboto Slab', serif;
+    font-size:12px;
+    letter-spacing:0.16em;
+    color:var(--accent);
+  }
+  .jl-cat-head h3{font-size:32px; font-weight:300; margin:0;}
+  .jl-items{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0 64px;
+  }
+  @media (max-width:768px){
+    .jl-items{grid-template-columns:1fr;}
+    .jelovnik-bar h2{font-size:24px;}
+    .jl-cat-head h3{font-size:28px;}
+    .jl-cat{scroll-margin-top:136px;}
+  }
+  .jl-items li{
+    padding-top:16px;
+    padding-bottom:16px;
+    border-bottom:1px solid var(--line-soft);
+  }
+  .jl-items h4{
+    font-family:'Roboto Slab', serif;
+    font-weight:400;
+    font-size:20px;
+    line-height:1.4;
+    color:var(--ink);
+    margin:0 0 4px 0;
+  }
+  .jl-items p{margin:0; font-size:16px; line-height:1.6; color:var(--text-muted);}
+  .jl-note{
+    margin-top:64px;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+  }
+  html.lock, html.lock body{overflow:hidden;}
 
   /* ---------- Split blokovi ---------- */
   .split{
@@ -669,6 +818,101 @@
     min-width:96px;
     flex-shrink:0;
   }
+
+  /* ---------- Izdvajamo iz ponude ---------- */
+  .izdvajamo{background:var(--deep); color:rgba(255,255,255,0.72);}
+  .izdvajamo h2{color:#fff;}
+  .izdvajamo .eyebrow{color:rgba(255,255,255,0.7);}
+  .izdvajamo .sec-num{color:var(--accent-light);}
+  .izdvajamo .sec-head p.body-text{color:rgba(255,255,255,0.68);}
+  .izd-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr;
+    grid-template-rows:auto auto;
+    gap:48px 32px;
+  }
+  .izd-card:first-child{grid-row:1 / 3;}
+  .izd-card .shot{height:240px; margin-bottom:24px;}
+  .izd-card:first-child .shot{height:600px;}
+  .izd-badge{
+    display:inline-block;
+    font-size:12px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:#f0d9c9;
+    border:1px solid var(--line-dark);
+    padding:4px 12px;
+    margin-bottom:16px;
+  }
+  .izd-card h3{color:#fff; font-size:24px; margin-bottom:8px;}
+  .izd-card:first-child h3{font-size:32px;}
+  .izd-card p{margin:0; font-size:16px; line-height:1.6; color:rgba(255,255,255,0.62);}
+  @media (max-width:900px){
+    .izd-grid{grid-template-columns:1fr 1fr; gap:40px 24px;}
+    .izd-card:first-child{grid-column:1 / 3; grid-row:auto;}
+    .izd-card:first-child .shot{height:400px;}
+  }
+  @media (max-width:560px){
+    .izd-grid{grid-template-columns:1fr;}
+    .izd-card:first-child{grid-column:auto;}
+    .izd-card:first-child .shot{height:320px;}
+    .izd-card .shot{height:240px;}
+  }
+
+  /* ---------- Galerija ---------- */
+  .gal-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    grid-auto-rows:240px;
+    gap:16px;
+  }
+  .gal-item{
+    padding:0;
+    border:0;
+    cursor:zoom-in;
+    width:100%;
+    height:100%;
+  }
+  .gal-item.is-empty{cursor:default;}
+  .gal-item.big{grid-column:span 2; grid-row:span 2;}
+  .gal-item.tall{grid-row:span 2;}
+  @media (max-width:900px){
+    .gal-grid{grid-template-columns:repeat(2, 1fr); grid-auto-rows:180px; gap:12px;}
+    .gal-item.tall{grid-row:span 1;}
+  }
+  .lightbox{
+    position:fixed;
+    inset:0;
+    z-index:2100;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:64px 16px;
+    background:rgba(21,4,3,0.94);
+    opacity:0;
+    visibility:hidden;
+    transition:opacity .3s ease, visibility 0s linear .3s;
+  }
+  .lightbox.open{opacity:1; visibility:visible; transition:opacity .3s ease;}
+  .lightbox img{max-width:min(1280px, 100%); max-height:100%; object-fit:contain;}
+  .lightbox button{
+    position:absolute;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:48px;
+    height:48px;
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.4);
+    color:#fff;
+    cursor:pointer;
+    transition:background .2s ease, color .2s ease;
+  }
+  .lightbox button:hover{background:#fff; color:var(--deep);}
+  .lightbox button svg{width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:1.4;}
+  .lb-close{top:16px; right:16px;}
+  .lb-prev{left:16px; top:50%; transform:translateY(-50%);}
+  .lb-next{right:16px; top:50%; transform:translateY(-50%);}
 
   /* ---------- Farma (tamna sekcija) ---------- */
   .farma{
@@ -1086,76 +1330,136 @@
     </div>
   </section>
 
-  <!-- UVOD -->
-  <section class="pain">
-    <div class="wrap reveal">
-      <div class="sprig" aria-hidden="true">
-        <svg viewBox="0 0 56 18"><path d="M2 9h52"/><path d="M14 9c3-4 7-5 10-5M14 9c3 4 7 5 10 5M22 9c3-4 7-5 10-5M22 9c3 4 7 5 10 5M30 9c3-4 7-5 10-5M30 9c3 4 7 5 10 5"/></svg>
-      </div>
-      <p class="quote">Domaća kuhinja piše na jelovniku, a na tanjir stiže nešto što je čekalo u <span>zamrzivaču</span>.</p>
-      <p class="body-text">Teško je naći mesto gde meso stiže sa farme, povrće sa njive, a sto je i dalje udoban za poslovni ručak ili porodičnu proslavu. Bela reka postoji zato što smo tu prazninu tražili i mi, pre nego što smo je popunili.</p>
-    </div>
-  </section>
-
   <!-- MENI -->
   <section id="meni">
     <div class="wrap">
       <div class="sec-head reveal">
         <span class="sec-num">01</span>
         <div>
-          <span class="eyebrow">Jelovnik</span>
-          <h2>Recepture koje pamte baka i deka</h2>
-          <p class="body-text">Sarme, čorbe, jela ispod sača, pečenje sa roštilja i domaći kolači. Sve pripremamo istog dana, od namirnica koje uglavnom uzgajamo sami.</p>
+          <span class="eyebrow">Jelovnik &middot; Glavna jela</span>
+          <h2>Glavna jela koja se kuvaju satima</h2>
+          <p class="body-text">Jagnjetina i teletina ispod sača, sarma iz zemljanog lonca, pečenje sa hrskavom korom. Meso i povrće stižu sa farme Bela Reka, a sve se sprema istog dana.</p>
         </div>
       </div>
 
-      <div class="meni-grid">
-        <div class="meni-card reveal">
-          <div class="shot" data-label="Fotografija predjela">
-            <img src="assets/meni-predjela.jpg" alt="Predjela i salate u restoranu Bela reka">
+      <div class="meni-split">
+        <figure class="meni-feature reveal" style="margin:0;">
+          <div class="framed">
+            <div class="shot" data-label="Fotografija: assets/meni-glavno.jpg">
+              <img src="assets/meni-glavno.jpg" alt="Jagnjetina ispod sača u restoranu Bela reka">
+            </div>
           </div>
-          <div class="meni-card-head">
-            <span>01</span>
-            <h3>Predjela i salate</h3>
-          </div>
-          <p>Kajmak, ajvar, pihtije i salate od povrća sa farme, spremljene po sezoni.</p>
-          <ul class="meni-tags">
-            <li>Kajmak</li><li>Ajvar</li><li>Pihtije</li><li>Sezonske salate</li>
-          </ul>
-        </div>
-        <div class="meni-card reveal">
-          <div class="shot" data-label="Fotografija jela sa roštilja">
-            <img src="assets/meni-rostilj.jpg" alt="Pečenje i jela sa roštilja u restoranu Bela reka">
-          </div>
-          <div class="meni-card-head">
-            <span>02</span>
-            <h3>Sa roštilja i iz rerne</h3>
-          </div>
-          <p>Pečenje, ćevapi, jagnjetina ispod sača i specijaliteti koje spremamo satima.</p>
-          <ul class="meni-tags">
-            <li>Pečenje</li><li>Ćevapi</li><li>Ispod sača</li><li>Sarma</li>
-          </ul>
-        </div>
-        <div class="meni-card reveal">
-          <div class="shot" data-label="Fotografija deserta">
-            <img src="assets/meni-desert.jpg" alt="Domaći kolači i deserti u restoranu Bela reka">
-          </div>
-          <div class="meni-card-head">
-            <span>03</span>
-            <h3>Slatkiši od domaćeg voća</h3>
-          </div>
-          <p>Pite, kolači i deserti od voća koje beremo na farmi, bez veštačkih dodataka.</p>
-          <ul class="meni-tags">
-            <li>Pite</li><li>Kolači</li><li>Voće sa farme</li>
+          <figcaption>
+            <strong>Jagnjetina ispod sača</strong>
+            <span>Preporuka kuhinje</span>
+          </figcaption>
+        </figure>
+
+        <div class="reveal">
+          <ul class="gl-list">
+            <li>
+              <span class="gl-num">01</span>
+              <h3>Jagnjetina ispod sača</h3>
+              <span class="gl-tag">Sa farme</span>
+              <p>Jagnje sa farme, krompir i luk, peče se polako pod žarom.</p>
+            </li>
+            <li>
+              <span class="gl-num">02</span>
+              <h3>Teletina ispod sača</h3>
+              <span class="gl-tag">Sa farme</span>
+              <p>Teleći but sa korenastim povrćem, pečen tri sata.</p>
+            </li>
+            <li>
+              <span class="gl-num">03</span>
+              <h3>Sarma u zemljanom loncu</h3>
+              <span class="gl-tag">Specijalitet</span>
+              <p>Kiseli kupus, mleveno meso i suva rebra, krčka se od jutra.</p>
+            </li>
+            <li>
+              <span class="gl-num">04</span>
+              <h3>Svinjsko pečenje</h3>
+              <span class="gl-tag">Sa farme</span>
+              <p>Pečenje sa hrskavom korom, uz pekarski krompir.</p>
+            </li>
+            <li>
+              <span class="gl-num">05</span>
+              <h3>Punjene paprike</h3>
+              <span class="gl-tag">Sezonsko</span>
+              <p>Paprike sa njive punjene mesom i pirinčem, u sosu od paradajza.</p>
+            </li>
+            <li>
+              <span class="gl-num">06</span>
+              <h3>Pasulj prebranac</h3>
+              <span class="gl-tag">Posno po želji</span>
+              <p>Zapečen pasulj sa lukom i domaćom kobasicom.</p>
+            </li>
+            <li>
+              <span class="gl-num">07</span>
+              <h3>Karađorđeva šnicla</h3>
+              <span class="gl-tag">Klasik</span>
+              <p>Teleća rolovana šnicla punjena kajmakom, uz tartar sos.</p>
+            </li>
           </ul>
         </div>
       </div>
 
       <div class="meni-foot reveal">
-        <p>Sve se sprema istog dana</p>
-        <a href="#" class="link-arrow">Pogledaj ceo jelovnik
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-        </a>
+        <div class="meni-cats" aria-label="Kategorije jelovnika"><button type="button" data-jl="predjela">Predjela</button><button type="button" data-jl="corbe">Čorbe i supe</button><button type="button" data-jl="glavna">Glavna jela</button><button type="button" data-jl="rostilj">Sa roštilja</button><button type="button" data-jl="salate">Salate</button><button type="button" data-jl="deserti">Deserti</button><button type="button" data-jl="pica">Pića</button></div>
+        <button type="button" class="btn btn-primary" data-jl="predjela">Pogledaj ceo jelovnik</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- IZDVAJAMO IZ PONUDE -->
+  <section class="izdvajamo" id="izdvajamo">
+    <div class="wrap">
+      <div class="sec-head center reveal">
+        <span class="sec-num" style="display:block; margin-bottom:12px;">02</span>
+        <span class="eyebrow">Izdvajamo iz ponude</span>
+        <h2>Jela zbog kojih se gosti vraćaju</h2>
+        <p class="body-text">Pet tanjira koje kuhinja najviše voli da sprema, a gosti najčešće poručuju.</p>
+      </div>
+      <div class="izd-grid">
+        <article class="izd-card reveal">
+          <div class="shot on-dark" data-label="Fotografija: assets/izdvajamo-1.jpg">
+            <img src="assets/izdvajamo-1.jpg" alt="Teletina ispod sača za dvoje u restoranu Bela reka">
+          </div>
+          <span class="izd-badge">Preporuka kuvara</span>
+          <h3>Teletina ispod sača za dvoje</h3>
+          <p>Teleći but, krompir i korenasto povrće, pečeno tri sata pod žarom. Poruči unapred, jer se sprema u ograničenoj količini.</p>
+        </article>
+        <article class="izd-card reveal">
+          <div class="shot on-dark" data-label="Fotografija: assets/izdvajamo-2.jpg">
+            <img src="assets/izdvajamo-2.jpg" alt="Plato Bela reka u restoranu Bela reka">
+          </div>
+          <span class="izd-badge">Sa farme</span>
+          <h3>Plato Bela reka</h3>
+          <p>Pršuta, kulen, sir i kajmak sa naše farme.</p>
+        </article>
+        <article class="izd-card reveal">
+          <div class="shot on-dark" data-label="Fotografija: assets/izdvajamo-3.jpg">
+            <img src="assets/izdvajamo-3.jpg" alt="Sarma u zemljanom loncu u restoranu Bela reka">
+          </div>
+          <span class="izd-badge">Specijalitet</span>
+          <h3>Sarma u zemljanom loncu</h3>
+          <p>Krčka se od jutra, sa suvim rebrima.</p>
+        </article>
+        <article class="izd-card reveal">
+          <div class="shot on-dark" data-label="Fotografija: assets/izdvajamo-4.jpg">
+            <img src="assets/izdvajamo-4.jpg" alt="Punjene paprike u restoranu Bela reka">
+          </div>
+          <span class="izd-badge">Sezonsko</span>
+          <h3>Punjene paprike</h3>
+          <p>Paprike sa njive, dok traje sezona.</p>
+        </article>
+        <article class="izd-card reveal">
+          <div class="shot on-dark" data-label="Fotografija: assets/izdvajamo-5.jpg">
+            <img src="assets/izdvajamo-5.jpg" alt="Pita sa višnjama u restoranu Bela reka">
+          </div>
+          <span class="izd-badge">Desert</span>
+          <h3>Pita sa višnjama</h3>
+          <p>Višnje iz našeg voćnjaka, domaće kore.</p>
+        </article>
       </div>
     </div>
   </section>
@@ -1165,7 +1469,7 @@
     <div class="wrap">
       <div class="split">
         <div class="reveal">
-          <span class="sec-num">02</span>
+          <span class="sec-num">03</span>
           <span class="eyebrow" style="margin-top:14px;">Ambijent</span>
           <h2>Prostor u kom se opustiš čim sedneš</h2>
           <p class="body-text">Drvo, kamen i topla svetlost. Sto za dvoje u miru, veliki sto za slavlje od dvadeset ljudi, i bašta za dane kad hoćeš da sediš napolju. Isti ambijent radi i za poslovni ručak i za rođendan.</p>
@@ -1193,6 +1497,46 @@
     </div>
   </section>
 
+  <!-- GALERIJA -->
+  <section id="galerija">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-num">04</span>
+        <div>
+          <span class="eyebrow">Galerija</span>
+          <h2>Pogledaj pre nego što dođeš</h2>
+          <p class="body-text">Sala, bašta, kuhinja i tanjiri, onako kako izgledaju svakog dana.</p>
+        </div>
+      </div>
+      <div class="gal-grid reveal">
+        <button type="button" class="gal-item shot big" data-label="Fotografija: assets/galerija-1.jpg" aria-label="Uvećaj: Sala restorana Bela reka">
+          <img src="assets/galerija-1.jpg" alt="Sala restorana Bela reka" loading="lazy">
+        </button>
+        <button type="button" class="gal-item shot" data-label="Fotografija: assets/galerija-2.jpg" aria-label="Uvećaj: Postavljen sto">
+          <img src="assets/galerija-2.jpg" alt="Postavljen sto" loading="lazy">
+        </button>
+        <button type="button" class="gal-item shot" data-label="Fotografija: assets/galerija-3.jpg" aria-label="Uvećaj: Kuhinja u radu">
+          <img src="assets/galerija-3.jpg" alt="Kuhinja u radu" loading="lazy">
+        </button>
+        <button type="button" class="gal-item shot tall" data-label="Fotografija: assets/galerija-4.jpg" aria-label="Uvećaj: Letnja bašta">
+          <img src="assets/galerija-4.jpg" alt="Letnja bašta" loading="lazy">
+        </button>
+        <button type="button" class="gal-item shot" data-label="Fotografija: assets/galerija-5.jpg" aria-label="Uvećaj: Jelo ispod sača">
+          <img src="assets/galerija-5.jpg" alt="Jelo ispod sača" loading="lazy">
+        </button>
+        <button type="button" class="gal-item shot" data-label="Fotografija: assets/galerija-6.jpg" aria-label="Uvećaj: Domaći deserti">
+          <img src="assets/galerija-6.jpg" alt="Domaći deserti" loading="lazy">
+        </button>
+        <button type="button" class="gal-item shot" data-label="Fotografija: assets/galerija-7.jpg" aria-label="Uvećaj: Detalj enterijera">
+          <img src="assets/galerija-7.jpg" alt="Detalj enterijera" loading="lazy">
+        </button>
+        <button type="button" class="gal-item shot" data-label="Fotografija: assets/galerija-8.jpg" aria-label="Uvećaj: Farma Bela Reka">
+          <img src="assets/galerija-8.jpg" alt="Farma Bela Reka" loading="lazy">
+        </button>
+      </div>
+    </div>
+  </section>
+
   <!-- FARMA -->
   <section class="farma" id="farma">
     <div class="wrap">
@@ -1203,7 +1547,7 @@
           </div>
         </div>
         <div class="reveal">
-          <span class="sec-num" style="color:var(--accent-light);">03</span>
+          <span class="sec-num" style="color:var(--accent-light);">05</span>
           <span class="eyebrow-rule" style="margin-top:14px;">Farma Bela Reka</span>
           <h2>Sve počinje na njivi, ne u magacinu</h2>
           <p class="body-text">Meso, mleko, sir i povrće koje stavljamo na tanjir potiču sa farme Bela Reka. Ne naručujemo od anonimnih dobavljača - znamo tačno odakle dolazi svaka namirnica, jer smo je mi gajili.</p>
@@ -1221,7 +1565,7 @@
   <section id="usluge">
     <div class="wrap">
       <div class="sec-head center reveal">
-        <span class="sec-num" style="display:block; margin-bottom:12px;">04</span>
+        <span class="sec-num" style="display:block; margin-bottom:12px;">06</span>
         <span class="eyebrow">Usluge</span>
         <h2>Odaberi kako želiš da probaš Belu reku</h2>
         <p class="body-text">Za sto, za poklon ili za kući - biraš ti.</p>
@@ -1272,7 +1616,7 @@
           </div>
         </div>
         <div class="reveal">
-          <span class="sec-num">05</span>
+          <span class="sec-num">07</span>
           <span class="eyebrow" style="margin-top:14px;">O restoranu</span>
           <h2>Prvo smo gajili, pa smo kuvali</h2>
           <p class="body-text">Bela reka radi na Novom Beogradu od 2017. godine. Nismo krenuli od jelovnika, krenuli smo od farme - prvo smo gajili namirnice, pa smo oko njih napravili restoran.</p>
@@ -1296,7 +1640,7 @@
   <section class="utisci" id="utisci">
     <div class="wrap">
       <div class="sec-head center reveal">
-        <span class="sec-num" style="display:block; margin-bottom:12px;">06</span>
+        <span class="sec-num" style="display:block; margin-bottom:12px;">08</span>
         <span class="eyebrow">Priznanja</span>
         <h2>Michelin nas preporučuje pet godina zaredom</h2>
         <p class="lead">Od 2022. do 2026. godine, Bela reka se nalazi na Michelin listi preporučenih restorana.</p>
@@ -1318,7 +1662,7 @@
   <section id="kontakt">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="sec-num">07</span>
+        <span class="sec-num">09</span>
         <div>
           <span class="eyebrow">Kontakt i lokacija</span>
           <h2>Nađi nas na Novom Beogradu</h2>
@@ -1451,6 +1795,105 @@
   </div>
 </footer>
 
+<!-- CEO JELOVNIK -->
+<div class="jelovnik" id="jelovnik" role="dialog" aria-modal="true" aria-labelledby="jelovnikTitle" aria-hidden="true">
+  <div class="jelovnik-top">
+    <div class="wrap">
+      <div class="jelovnik-bar">
+        <h2 id="jelovnikTitle">Jelovnik</h2>
+        <button type="button" class="jelovnik-close" id="jelovnikClose">Zatvori
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12"/><path d="M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <nav class="jelovnik-tabs" aria-label="Kategorije jelovnika"><a href="#jl-predjela" data-tab="predjela">Predjela</a><a href="#jl-corbe" data-tab="corbe">Čorbe i supe</a><a href="#jl-glavna" data-tab="glavna">Glavna jela</a><a href="#jl-rostilj" data-tab="rostilj">Sa roštilja</a><a href="#jl-salate" data-tab="salate">Salate</a><a href="#jl-deserti" data-tab="deserti">Deserti</a><a href="#jl-pica" data-tab="pica">Pića</a></nav>
+    </div>
+  </div>
+  <div class="wrap jelovnik-body">
+      <div class="jl-cat" id="jl-predjela">
+        <div class="jl-cat-head"><span>01</span><h3>Predjela</h3></div>
+        <ul class="jl-items">
+            <li><h4>Plato Bela reka</h4><p>Pršuta, kulen, sir i kajmak sa farme, uz domaću proju.</p></li>
+            <li><h4>Domaći kajmak</h4><p>Mladi kajmak od mleka sa farme, uz toplu lepinju.</p></li>
+            <li><h4>Ajvar od pečenih paprika</h4><p>Ljuti ili blagi, pečen i ljušten ručno.</p></li>
+            <li><h4>Proja sa sirom i čvarcima</h4><p>Kukuruzna proja iz rerne, služi se topla.</p></li>
+            <li><h4>Pihtije</h4><p>Svinjske pihtije sa belim lukom, po staroj recepturi.</p></li>
+            <li><h4>Gibanica</h4><p>Domaće kore, sir i jaja, pečena istog dana.</p></li>
+        </ul>
+      </div>
+      <div class="jl-cat" id="jl-corbe">
+        <div class="jl-cat-head"><span>02</span><h3>Čorbe i supe</h3></div>
+        <ul class="jl-items">
+            <li><h4>Teleća čorba</h4><p>Gusta čorba sa povrćem, zaprška i kiselo mleko.</p></li>
+            <li><h4>Jagnjeća čorba</h4><p>Od jagnjetine sa farme, sa pirinčem i peršunom.</p></li>
+            <li><h4>Pileća supa</h4><p>Bistra supa od domaće kokoške, sa ručno sečenim rezancima.</p></li>
+            <li><h4>Čorba od pasulja</h4><p>Posna čorba sa suvom paprikom i lovorom.</p></li>
+        </ul>
+      </div>
+      <div class="jl-cat" id="jl-glavna">
+        <div class="jl-cat-head"><span>03</span><h3>Glavna jela</h3></div>
+        <ul class="jl-items">
+            <li><h4>Jagnjetina ispod sača</h4><p>Jagnje sa farme, krompir i luk, peče se polako pod žarom.</p></li>
+            <li><h4>Teletina ispod sača</h4><p>Teleći but sa korenastim povrćem, pečen tri sata.</p></li>
+            <li><h4>Sarma u zemljanom loncu</h4><p>Kiseli kupus, mleveno meso i suva rebra, krčka se od jutra.</p></li>
+            <li><h4>Svinjsko pečenje</h4><p>Pečenje sa hrskavom korom, uz pekarski krompir.</p></li>
+            <li><h4>Punjene paprike</h4><p>Paprike sa njive punjene mesom i pirinčem, u sosu od paradajza.</p></li>
+            <li><h4>Pasulj prebranac</h4><p>Zapečen pasulj sa lukom i domaćom kobasicom.</p></li>
+            <li><h4>Karađorđeva šnicla</h4><p>Teleća rolovana šnicla punjena kajmakom, uz tartar sos.</p></li>
+        </ul>
+      </div>
+      <div class="jl-cat" id="jl-rostilj">
+        <div class="jl-cat-head"><span>04</span><h3>Sa roštilja</h3></div>
+        <ul class="jl-items">
+            <li><h4>Ćevapi</h4><p>Deset komada, uz lepinju, kajmak i luk.</p></li>
+            <li><h4>Pljeskavica</h4><p>Klasična ili punjena kajmakom i sirom.</p></li>
+            <li><h4>Vešalica</h4><p>Sušeni svinjski vrat, pečen na žaru.</p></li>
+            <li><h4>Domaće kobasice</h4><p>Kobasice sa farme, blago dimljene.</p></li>
+            <li><h4>Mešano meso za dvoje</h4><p>Ćevapi, vešalica, kobasica, uštipci i piletina.</p></li>
+            <li><h4>Pileći file na žaru</h4><p>Marinirana piletina uz grilovano povrće.</p></li>
+        </ul>
+      </div>
+      <div class="jl-cat" id="jl-salate">
+        <div class="jl-cat-head"><span>05</span><h3>Salate</h3></div>
+        <ul class="jl-items">
+            <li><h4>Srpska salata</h4><p>Paradajz, krastavac, paprika i crni luk sa njive.</p></li>
+            <li><h4>Šopska salata</h4><p>Srpska salata sa rendanim ovčijim sirom.</p></li>
+            <li><h4>Kupus salata</h4><p>Sitno sečen kupus, ulje i biber.</p></li>
+            <li><h4>Pečene paprike</h4><p>Sa belim lukom, sirćetom i peršunom.</p></li>
+            <li><h4>Sezonska salata</h4><p>Šta god tog dana stigne sa farme.</p></li>
+        </ul>
+      </div>
+      <div class="jl-cat" id="jl-deserti">
+        <div class="jl-cat-head"><span>06</span><h3>Deserti</h3></div>
+        <ul class="jl-items">
+            <li><h4>Pita sa višnjama</h4><p>Domaće kore i višnje iz našeg voćnjaka.</p></li>
+            <li><h4>Pita sa jabukama</h4><p>Jabuke, cimet i orasi, služi se topla.</p></li>
+            <li><h4>Tufahije</h4><p>Kuvane jabuke punjene orasima, sa šlagom.</p></li>
+            <li><h4>Palačinke sa domaćim džemom</h4><p>Džem od šljiva ili kajsija sa farme.</p></li>
+            <li><h4>Krempita</h4><p>Visoka krempita, pravi se svako jutro.</p></li>
+        </ul>
+      </div>
+      <div class="jl-cat" id="jl-pica">
+        <div class="jl-cat-head"><span>07</span><h3>Pića</h3></div>
+        <ul class="jl-items">
+            <li><h4>Domaća rakija</h4><p>Šljivovica, dunjevača i kajsijevača iz lokalnih destilerija.</p></li>
+            <li><h4>Vina iz srpskih vinarija</h4><p>Crvena, bela i roze, na čašu ili bocu.</p></li>
+            <li><h4>Domaći sokovi</h4><p>Sok od jabuke, zove i višnje, bez dodatog šećera.</p></li>
+            <li><h4>Domaća kafa</h4><p>Kuvana u džezvi, uz ratluk.</p></li>
+            <li><h4>Točeno pivo</h4><p>Svetlo i tamno, lokalne pivare.</p></li>
+        </ul>
+      </div>
+    <p class="jl-note">Ponuda se menja po sezoni. Za alergene i posne varijante pitaj osoblje.</p>
+  </div>
+</div>
+
+<!-- GALERIJA: UVEĆANA FOTOGRAFIJA -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galerija" aria-hidden="true">
+  <img src="" alt="" id="lbImg">
+  <button type="button" class="lb-close" id="lbClose" aria-label="Zatvori"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12"/><path d="M18 6 6 18"/></svg></button>
+  <button type="button" class="lb-prev" id="lbPrev" aria-label="Prethodna fotografija"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button>
+  <button type="button" class="lb-next" id="lbNext" aria-label="Sledeća fotografija"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>
+</div>
+
 <script>
   /* Fotografije koje još ne postoje u assets/ prelaze u stilizovan placeholder */
   document.querySelectorAll('.shot img, .hero-bg img, .cta-bg img').forEach(img => {
@@ -1501,6 +1944,91 @@
   } else {
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
   }
+  /* Ceo jelovnik: otvara se preko strane, u istom tabu */
+  const jelovnik = document.getElementById('jelovnik');
+  const jlClose = document.getElementById('jelovnikClose');
+  const jlTabs = jelovnik.querySelectorAll('.jelovnik-tabs a');
+  let jlOpener = null;
+
+  const jlGo = (key, smooth) => {
+    const cat = document.getElementById('jl-' + key);
+    if (cat) jelovnik.scrollTo({ top: key === 'predjela' ? 0 : cat.offsetTop - jelovnik.querySelector('.jelovnik-top').offsetHeight - 24, behavior: smooth ? 'smooth' : 'auto' });
+  };
+  const openJelovnik = (key, opener) => {
+    jlOpener = opener;
+    jelovnik.classList.add('open');
+    jelovnik.setAttribute('aria-hidden', 'false');
+    document.documentElement.classList.add('lock');
+    jlGo(key, false);
+    jlClose.focus({ preventScroll: true });
+  };
+  const closeJelovnik = () => {
+    jelovnik.classList.remove('open');
+    jelovnik.setAttribute('aria-hidden', 'true');
+    document.documentElement.classList.remove('lock');
+    if (jlOpener) jlOpener.focus({ preventScroll: true });
+  };
+  document.querySelectorAll('[data-jl]').forEach(btn => {
+    btn.addEventListener('click', () => openJelovnik(btn.dataset.jl, btn));
+  });
+  jlClose.addEventListener('click', closeJelovnik);
+  jlTabs.forEach(tab => {
+    tab.addEventListener('click', e => { e.preventDefault(); jlGo(tab.dataset.tab, true); });
+  });
+  /* aktivna kategorija u traci prati skrol */
+  jelovnik.addEventListener('scroll', () => {
+    const line = jelovnik.querySelector('.jelovnik-top').offsetHeight + 48;
+    let current = jlTabs[0].dataset.tab;
+    jelovnik.querySelectorAll('.jl-cat').forEach(cat => {
+      if (cat.getBoundingClientRect().top <= line) current = cat.id.slice(3);
+    });
+    jlTabs.forEach(t => t.classList.toggle('active', t.dataset.tab === current));
+  }, { passive: true });
+
+  /* Galerija: uvećanje fotografije (samo za fotografije koje postoje) */
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  let lbIndex = 0, lbOpener = null;
+  const galImgs = () => [...document.querySelectorAll('.gal-item img')];
+  const lbShow = i => {
+    const imgs = galImgs();
+    if (!imgs.length) return;
+    lbIndex = (i + imgs.length) % imgs.length;
+    lbImg.src = imgs[lbIndex].src;
+    lbImg.alt = imgs[lbIndex].alt;
+  };
+  const closeLightbox = () => {
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.documentElement.classList.remove('lock');
+    if (lbOpener) lbOpener.focus({ preventScroll: true });
+  };
+  document.querySelectorAll('.gal-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const img = item.querySelector('img');
+      if (!img) return;
+      lbOpener = item;
+      lbShow(galImgs().indexOf(img));
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.documentElement.classList.add('lock');
+      document.getElementById('lbClose').focus({ preventScroll: true });
+    });
+  });
+  document.getElementById('lbClose').addEventListener('click', closeLightbox);
+  document.getElementById('lbPrev').addEventListener('click', () => lbShow(lbIndex - 1));
+  document.getElementById('lbNext').addEventListener('click', () => lbShow(lbIndex + 1));
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+  document.addEventListener('keydown', e => {
+    if (lightbox.classList.contains('open')) {
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') lbShow(lbIndex - 1);
+      if (e.key === 'ArrowRight') lbShow(lbIndex + 1);
+    } else if (e.key === 'Escape' && jelovnik.classList.contains('open')) {
+      closeJelovnik();
+    }
+  });
 </script>
 
 </body>
